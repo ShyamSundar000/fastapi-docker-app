@@ -25,6 +25,10 @@ class Contact(BaseModel):
     phone:str
     email:str
 
+@app.get("/")
+def home(db:Session=Depends(get_db)):
+    return {"message":"Welcome to my fastAPI CRUD APP"}
+
 @app.get("/test-db")
 def test_db(db:Session=Depends(get_db)):
     return {"message":"DB connected"}
