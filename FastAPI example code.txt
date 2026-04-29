@@ -1,0 +1,220 @@
+Good timing—FastAPI is a great next step after Python basics. I’ll keep this **hands-on** so you actually build something, not just read.
+
+---
+
+# 🚀 Step 0: What You’re About to Build
+
+You’ll create a simple API with:
+
+* `GET` → read data
+* `POST` → add data
+* `PUT` → update
+* `DELETE` → remove
+
+Think of it as a **mini contacts app API** (fits your Phase II work nicely).
+
+---
+
+# ⚙️ Step 1: Install FastAPI
+
+Open terminal / command prompt:
+
+```bash
+pip install fastapi uvicorn
+```
+
+* **FastAPI** → framework
+* **Uvicorn** → server (runs your API)
+
+---
+
+# 📁 Step 2: Create Your First File
+
+Create a file called:
+
+```bash
+main.py
+```
+
+---
+
+# ✨ Step 3: Your First API
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def home():
+    return {"message": "Hello, API!"}
+```
+
+---
+
+# ▶️ Step 4: Run the API
+
+In terminal:
+
+```bash
+uvicorn main:app --reload
+```
+
+Now open your browser:
+
+👉 [http://127.0.0.1:8000](http://127.0.0.1:8000)
+👉 [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)  ← **IMPORTANT**
+
+---
+
+# 🔥 Step 5: Interactive Docs (Your Best Friend)
+
+The `/docs` page lets you:
+
+* Test APIs without writing frontend
+* Send requests
+* See responses
+
+This is how professionals debug APIs.
+
+---
+
+# 🧠 Step 6: Add Real Functionality
+
+Let’s build a **contacts API**.
+
+---
+
+## 📦 Step 6.1: Create Data Storage
+
+```python
+contacts = []
+```
+
+---
+
+## ➕ Step 6.2: Add Contact (POST)
+
+```python
+from pydantic import BaseModel
+
+class Contact(BaseModel):
+    name: str
+    phone: str
+    email: str
+
+@app.post("/contacts")
+def add_contact(contact: Contact):
+    contacts.append(contact)
+    return {"message": "Contact added", "data": contact}
+```
+
+---
+
+## 📖 Step 6.3: Get All Contacts (GET)
+
+```python
+@app.get("/contacts")
+def get_contacts():
+    return contacts
+```
+
+---
+
+## 🔍 Step 6.4: Get One Contact
+
+```python
+@app.get("/contacts/{index}")
+def get_contact(index: int):
+    return contacts[index]
+```
+
+---
+
+## ✏️ Step 6.5: Update Contact (PUT)
+
+```python
+@app.put("/contacts/{index}")
+def update_contact(index: int, contact: Contact):
+    contacts[index] = contact
+    return {"message": "Updated", "data": contact}
+```
+
+---
+
+## ❌ Step 6.6: Delete Contact
+
+```python
+@app.delete("/contacts/{index}")
+def delete_contact(index: int):
+    removed = contacts.pop(index)
+    return {"message": "Deleted", "data": removed}
+```
+
+---
+
+# 🎯 What You Just Learned
+
+You now understand:
+
+* API routes (`@app.get`, `@app.post`)
+* Path parameters (`/contacts/{index}`)
+* Request body (using `BaseModel`)
+* CRUD operations (Create, Read, Update, Delete)
+
+---
+
+# ⚠️ Important Reality Check
+
+Right now:
+
+* Data is stored in **memory (temporary)**
+* If you restart → data is gone
+
+That’s normal. Database comes later.
+
+---
+
+# 🧪 Practice Tasks (DO THESE)
+
+1. Add:
+
+   * Search contact by name
+2. Add:
+
+   * Validation (phone must be 10 digits)
+3. Prevent:
+
+   * Index out of range errors
+
+---
+
+# 🚀 Next Step (if you’re serious)
+
+After this, I can guide you through:
+
+### 🔹 Level 2
+
+* File-based storage (save contacts to file)
+
+### 🔹 Level 3
+
+* Connect database (SQLite)
+
+### 🔹 Level 4
+
+* Build real backend (login system)
+
+---
+
+# 💬 Before we continue
+
+Tell me:
+
+👉 Did you successfully run `/docs`?
+👉 Do you want:
+
+* **More practice problems**, OR
+* **Next level (database + real project)**
+
+I’ll guide you like a mentor step-by-step.
