@@ -7,7 +7,7 @@ from database import engine, SessionLocal
 from models import Base, ContactDB
 from sqlalchemy.orm import Session
 
-#Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 print("App started")
 
 app = FastAPI()
